@@ -1,0 +1,15 @@
+.search-widget {
+  @apply bg-gray-100 p-2;
+}
+
+.search-input-area {
+  @apply bg-white flex items-center w-3/5;
+}
+
+.search-input-area .search-icon {
+  @apply h-12 w-12 flex items-center justify-center text-base text-gray-500;
+}
+
+.search-input-area .search-input {
+  @apply h-12 w-full pr-3 outline-none;
+}

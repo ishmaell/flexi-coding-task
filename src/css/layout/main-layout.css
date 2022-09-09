@@ -1,0 +1,3 @@
+.main-layout {
+  @apply max-w-[1400px] my-20 m-auto;
+}

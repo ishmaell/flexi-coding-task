@@ -1,0 +1,7 @@
+.button {
+  @apply font-bold rounded text-center text-xs bg-transparent p-2;
+}
+
+.button.primary {
+  @apply bg-black text-white;
+}

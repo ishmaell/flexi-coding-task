@@ -1,7 +1,13 @@
-import React from 'react';
+import './css/index.css';
+import MainLayout from './layout/MainLayout';
+import Home from './pages/Home';
 
 function App() {
-  return <div className="App">Hello World</div>;
+  return (
+    <MainLayout>
+      <Home />
+    </MainLayout>
+  );
 }
 
 export default App;
