@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../components/Card';
 import SearchWidget from '../components/SearchWidget';
 
 const Home = () => {
+  const [searchValue, setSearchValue] = useState<string>('');
+  const handleSearch = () => {
+    if (searchValue) {
+      const encodedStr = encodeURIComponent(searchValue);
+      alert(encodedStr);
+    }
+  };
   return (
     <Card>
-      <SearchWidget />
+      <SearchWidget
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        handleSearch={handleSearch}
+      />
       <div className="table-area">
         <table className="table">
           <thead>
