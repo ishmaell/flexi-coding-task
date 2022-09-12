@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 
-const useSearchQuery = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  return { searchQuery, setSearchQuery };
-};
+import SearchQueryContext from '../context/SearchQueryContext';
+import { ISearchQueryContext } from '../models/searchQuery';
+
+const useSearchQuery = () =>
+  useContext(SearchQueryContext) as ISearchQueryContext;
 
 export default useSearchQuery;

@@ -7,13 +7,16 @@ import { useFetchRepositoriesMutation } from '../features/repository/repositoryA
 import Spinner from '../components/Spinner';
 import NoData from '../components/NoData';
 import RepositoryTable from '../components/table/RepositoryTable';
+import useSearchQuery from '../hooks/useSearchQuery';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [fetchRepositories, { data, isLoading, isError, isSuccess }] =
     useFetchRepositoriesMutation();
+  const { setSearchQuery } = useSearchQuery();
   const handleSearch = () => {
     if (searchValue) {
+      setSearchQuery(searchValue);
       const encodedStr = encodeURIComponent(searchValue);
       fetchRepositories(encodedStr);
     }
