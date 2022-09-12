@@ -1,0 +1,7 @@
+.no-data {
+  @apply p-5 flex flex-col justify-center items-center text-center gap-3;
+}
+
+.no-data svg, .no-data p {
+  @apply text-gray-500;
+}

@@ -4,9 +4,11 @@
 
 @import './components/button';
 @import './components/card';
+@import './components/no-data';
 @import './components/header';
 @import './components/table-area';
 @import './components/search-widget';
+@import './components/spinner';
 @import './layout/main-layout';
 
 

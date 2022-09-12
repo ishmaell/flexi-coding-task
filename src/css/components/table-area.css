@@ -1,5 +1,5 @@
 .table-area {
-  @apply mt-5;
+  @apply p-10;
 }
 
 .table-area .table {
