@@ -15,8 +15,9 @@ export interface IRepository {
   description: string;
   collaborators_url: string;
   username: string;
-  owner: IRepositoryOwner;
+  owner: IRepositoryOwner | any;
   language: string;
+  created_at: string;
 }
 
 export interface IRepositoryResponse {

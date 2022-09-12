@@ -1,5 +1,7 @@
 import React from 'react';
 import { BsSearch } from 'react-icons/bs';
+import { useAppDispatch } from '../hooks/useRedux';
+import { apiSlice } from '../features/repository/repositoryApiSlice';
 
 interface SearchWidgetProps {
   searchValue: string;
@@ -12,9 +14,19 @@ const SearchWidget: React.FC<SearchWidgetProps> = ({
   setSearchValue,
   handleSearch,
 }) => {
+  const dispatch = useAppDispatch();
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSearch();
+  };
+
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.value) {
+      setSearchValue('');
+      dispatch(apiSlice.util.resetApiState());
+    } else {
+      setSearchValue(event.target.value);
+    }
   };
   return (
     <form onSubmit={onSubmitHandler}>
@@ -27,7 +39,7 @@ const SearchWidget: React.FC<SearchWidgetProps> = ({
             className="search-input"
             type="search"
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={onChangeHandler}
             placeholder="Start typing to search"
           />
         </div>

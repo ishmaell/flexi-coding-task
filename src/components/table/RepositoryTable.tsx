@@ -6,8 +6,9 @@ import RepositoryTableRow from './RepositoryTableRow';
 const RepositoryTable: React.FC<IRepositoryResponse> = ({ items }) => {
   console.log(items);
   const RenderTableRow = () =>
-    items.map((item: IRepository, index: number) => (
+    items.map((item: IRepository) => (
       <RepositoryTableRow
+        key={item.id}
         id={item.id}
         name={item.name}
         full_name={item.full_name}
@@ -15,14 +16,14 @@ const RepositoryTable: React.FC<IRepositoryResponse> = ({ items }) => {
         collaborators_url={item.collaborators_url}
         username={''}
         owner={item.owner.login}
-        language={''}
+        language={item.language}
+        created_at={item.created_at}
       />
     ));
 
   return (
     <table className="table">
       <RepositoryTableHead />
-      {/* <RenderTableRow /> */}
       <tbody>{RenderTableRow()}</tbody>
     </table>
   );

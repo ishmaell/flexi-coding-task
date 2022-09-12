@@ -10,7 +10,7 @@ import RepositoryTable from '../components/table/RepositoryTable';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [fetchRepositories, { data, isLoading, isError }] =
+  const [fetchRepositories, { data, isLoading, isError, isSuccess }] =
     useFetchRepositoriesMutation();
   const handleSearch = () => {
     if (searchValue) {
@@ -18,6 +18,7 @@ const Home = () => {
       fetchRepositories(encodedStr);
     }
   };
+
   return (
     <Card>
       <SearchWidget
@@ -40,7 +41,7 @@ const Home = () => {
             message="An error occured. Please try again."
           />
         )}
-        {!isLoading && data?.items.length === 0 && (
+        {!isError && !isLoading && (!isSuccess || data?.items.length === 0) && (
           <NoData Icon={RiFolderOpenLine} message="No records to display" />
         )}
       </div>
