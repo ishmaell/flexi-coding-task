@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { IRepository } from '../../models/repository';
+import { truncateStr } from '../../utils';
 
 const RepositoryTableRow = ({
   full_name,
@@ -14,7 +15,7 @@ const RepositoryTableRow = ({
       <td>10270250</td>
       <td>{full_name}</td>
       <td>{owner}</td>
-      <td>{description}</td>
+      <td>{truncateStr(description, 50)}</td>
       <td>{moment(moment(created_at, 'YYYYMMDD'), 'YYYYMMDD').calendar()}</td>
       <td>
         <button className="button primary">View Contributors</button>
