@@ -1,10 +1,12 @@
 import React from 'react';
 import moment from 'moment';
+import parse from 'html-react-parser';
 import { IRepository } from '../../models/repository';
-import { truncateStr } from '../../utils';
+import { truncateStr, addHighlight } from '../../utils';
 import useSearchQuery from '../../hooks/useSearchQuery';
 
 const RepositoryTableRow = ({
+  id,
   full_name,
   owner,
   description,
@@ -12,12 +14,16 @@ const RepositoryTableRow = ({
   created_at,
 }: IRepository) => {
   const { searchQuery } = useSearchQuery();
+  const highLightedDesc = parse(
+    addHighlight(searchQuery, truncateStr(description, 50))
+  );
+  const highLighedFullname = parse(addHighlight(searchQuery, full_name));
   return (
     <tr>
-      <td>{searchQuery}</td>
-      <td>{full_name}</td>
+      <td>{id}</td>
+      <td>{highLighedFullname}</td>
       <td>{owner}</td>
-      <td>{truncateStr(description, 50)}</td>
+      <td>{highLightedDesc}</td>
       <td>{moment(moment(created_at, 'YYYYMMDD'), 'YYYYMMDD').calendar()}</td>
       <td>
         <button className="button primary">View Contributors</button>

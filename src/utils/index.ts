@@ -7,4 +7,12 @@ function truncateStr(str: string, len: number): string {
   else return str.slice(0, len) + '...';
 }
 
-export { truncateStr };
+function addHighlight(query: string, str: string): any {
+  if (!query || !str) return '';
+
+  let regex = new RegExp(`\\b${query}\\b`, 'gi');
+  const newHighlightedStr = str.replace(regex, `<mark>${query}</mark>`);
+  return newHighlightedStr;
+}
+
+export { truncateStr, addHighlight };
