@@ -1,10 +1,11 @@
-#A simple web application for searching GitHub repos built with React &amp; TypeScript.
+A simple web application for searching GitHub repos built with React &amp; TypeScript.
 
 ## Summary
 
 - [Getting Started](#getting-started)
 - [Dependencies](#dependencies)
 - [Prerequisites](#prerequisites)
+- [Challenges](#challenges)
 - [Repo Structure](#repo-structure)
 - [Authors](#authors-[dev])
 
@@ -25,6 +26,11 @@
 The following are required to run the app
 
 - [node v16.13.0](https://nodejs.org)
+
+## Challenges
+
+- GitHub recently modified its policy about accesing List repository collbaorators. It says;
+  `You must authenticate using an access token with the read:org and repo scopes with push access to use this endpoint. GitHub Apps must have the members organization permission and metadata repository permission to use this endpoint.`
 
 ## Repo Structure
 
