@@ -18,6 +18,7 @@ export interface IRepository {
   owner: IRepositoryOwner | any;
   language: string;
   created_at: string;
+  openModal: (owner: string, repo: string) => void;
 }
 
 export interface IRepositoryResponse {

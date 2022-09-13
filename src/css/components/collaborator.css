@@ -1,0 +1,19 @@
+.collaborator {
+  @apply flex justify-between items-center
+}
+
+.collaborator .avatar-name {
+  @apply flex items-center gap-1;
+}
+
+.collaborator .avatar {
+  @apply h-10 w-10 rounded-full my-auto;
+}
+
+.collaborator .url {
+  @apply flex justify-between hover:text-blue-400;
+}
+
+.no-collaborators {
+  @apply text-base text-gray-500;
+}

@@ -1,0 +1,60 @@
+.modal-open {
+  @apply overflow-hidden
+}
+.overlay {
+  background: rgba(0, 0, 0, 0.25);
+  @apply w-screen h-screen fixed top-0 left-0 z-[1000] overflow-y-scroll; 
+}
+
+.modal {
+  @apply bg-white p-3 sm:my-20 sm:mx-5 sm:p-3 lg:max-w-[35rem] sm:h-auto h-screen lg:my-12 md:mx-auto lg:p-10 sm:rounded-lg shadow-lg flex flex-col justify-center items-center relative;
+}
+
+.modal.wide {
+  @apply max-w-6xl;
+}
+
+.modal-table .modal-actions {
+  @apply max-w-xs m-auto;
+}
+
+.modal-table tr:last-child {
+  @apply border-0
+}
+
+.modal-table tr:hover:last-child {
+  @apply bg-transparent !important;
+}
+
+.close {
+  @apply cursor-pointer absolute top-0 right-0 m-4;
+}
+
+.close svg {
+  @apply w-8 h-8 fill-gray-400;
+}
+
+
+.modal-content {
+  @apply w-full;
+}
+
+.modal-title {
+  @apply text-xl font-semibold mb-5 text-gray-900;
+}
+
+.modal-description {
+  @apply mb-5 text-base;
+}
+
+.modal-actions {
+  @apply flex justify-between;
+}
+
+.modal-search-area {
+  @apply mb-7;
+}
+
+.modal-search-area .search-input-area {
+  @apply w-full;
+}
