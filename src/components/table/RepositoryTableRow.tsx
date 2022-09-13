@@ -12,10 +12,11 @@ const RepositoryTableRow = ({
   description,
   collaborators_url,
   created_at,
+  openModal,
 }: IRepository) => {
   const { searchQuery } = useSearchQuery();
   const highLightedDesc = parse(
-    addHighlight(searchQuery, truncateStr(description, 50))
+    addHighlight(searchQuery, truncateStr(description, 30))
   );
   const highLighedFullname = parse(addHighlight(searchQuery, full_name));
   return (
@@ -26,7 +27,12 @@ const RepositoryTableRow = ({
       <td>{highLightedDesc}</td>
       <td>{moment(moment(created_at, 'YYYYMMDD'), 'YYYYMMDD').calendar()}</td>
       <td>
-        <button className="button primary">View Contributors</button>
+        <button
+          onClick={() => openModal(collaborators_url)}
+          className="button primary"
+        >
+          View Contributors
+        </button>
       </td>
     </tr>
   );
