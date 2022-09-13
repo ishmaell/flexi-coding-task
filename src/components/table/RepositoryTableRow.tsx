@@ -8,9 +8,9 @@ import useSearchQuery from '../../hooks/useSearchQuery';
 const RepositoryTableRow = ({
   id,
   full_name,
+  name,
   owner,
   description,
-  collaborators_url,
   created_at,
   openModal,
 }: IRepository) => {
@@ -28,7 +28,7 @@ const RepositoryTableRow = ({
       <td>{moment(moment(created_at, 'YYYYMMDD'), 'YYYYMMDD').calendar()}</td>
       <td>
         <button
-          onClick={() => openModal(collaborators_url)}
+          onClick={() => openModal(owner, name)}
           className="button primary"
         >
           View Contributors

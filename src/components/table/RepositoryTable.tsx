@@ -4,50 +4,96 @@ import RepositoryTableHead from './RepositoryTableHead';
 import RepositoryTableRow from './RepositoryTableRow';
 import Modal from '../Modal';
 import Spinner from '../Spinner';
-import { getCollaborators } from '../../api/axios';
+import { getCollaboratorsOct } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setCollaborators } from '../../features/collaborators/collaboratorsSlice';
+import {
+  setCollaborators,
+  searchCollaborators,
+  clearCollaborators,
+} from '../../features/collaborators/collaboratorsSlice';
 import Collaborator from '../Collaborators';
+import { BsSearch } from 'react-icons/bs';
+import { ICollaborator } from '../../models/collaborator';
 
 const RepositoryTable: React.FC<IRepositoryResponse> = ({ items }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFetchingCollaborators, setIsFetchingCollaborators] =
     useState<boolean>(false);
-  const dispatch = useAppDispatch();
-  const { collaborators } = useAppSelector((state) => state.collaborators);
+  const [selectedRepo, setSelectedRepo] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
-  const RenderCollaborators = () => {
-    if (collaborators.length === 0) return <p>No collaborators was found</p>;
-    else {
-      return collaborators.map((elem) => (
-        <Collaborator
-          key={elem.id}
-          id={elem.id}
-          login={elem.login}
-          avatar_url={elem.avatar_url}
-          html_url={elem.html_url}
-        />
-      ));
-    }
+  const dispatch = useAppDispatch();
+  const { collaborators, filteredCollaborators } = useAppSelector(
+    (state) => state.collaborators
+  );
+
+  const closeModalHandler = () => {
+    setSelectedRepo('');
+    setIsModalOpen(false);
   };
 
-  const openModalHandler = async (collaboratorsUrl: string) => {
+  const resetCollaborators = () => {
+    dispatch(clearCollaborators());
+  };
+
+  const openModalHandler = async (owner: string, repo: string) => {
     setIsModalOpen(true);
     setIsFetchingCollaborators(true);
+    setSelectedRepo(repo);
+
+    resetCollaborators();
+
     try {
-      const collaborators = await getCollaborators(collaboratorsUrl);
-      console.log(collaborators.data);
+      const collaborators = await getCollaboratorsOct(owner, repo);
       dispatch(setCollaborators(collaborators.data));
-    } catch (error) {
+    } catch (error: any) {
+      throw new Error(error);
     } finally {
       setIsFetchingCollaborators(false);
     }
   };
 
-  const closeModalHandler = () => {
-    setIsModalOpen(false);
+  const searchHandler = () => {
+    dispatch(searchCollaborators(searchValue));
   };
-  const RenderTableRow = () =>
+
+  const RenderCollaborators = (): any => {
+    if (searchValue) {
+      if (filteredCollaborators.length === 0) {
+        return <p className="no-collaborators">No match was found</p>;
+      }
+      return filteredCollaborators.map((elem: ICollaborator) => {
+        const { id, login, avatar_url, html_url } = elem;
+        return (
+          <Collaborator
+            key={id}
+            id={id}
+            login={login}
+            avatar_url={avatar_url}
+            html_url={html_url}
+          />
+        );
+      });
+    }
+    if (collaborators.length === 0)
+      return <p className="no-collaborators">No collaborators was found</p>;
+    else {
+      return collaborators.map((elem: ICollaborator) => {
+        const { id, login, avatar_url, html_url } = elem;
+        return (
+          <Collaborator
+            key={id}
+            id={id}
+            login={login}
+            avatar_url={avatar_url}
+            html_url={html_url}
+          />
+        );
+      });
+    }
+  };
+
+  const RenderTableRow = (): any =>
     items.map((item: IRepository) => (
       <RepositoryTableRow
         key={item.id}
@@ -64,20 +110,44 @@ const RepositoryTable: React.FC<IRepositoryResponse> = ({ items }) => {
       />
     ));
 
+  React.useEffect(() => {
+    if (searchValue) searchHandler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
+
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={closeModalHandler}>
         {isFetchingCollaborators && <Spinner />}
         {!isFetchingCollaborators && (
           <>
-            <div className="modal-title">Contributors</div>
-            {RenderCollaborators()}
+            <div className="modal-title">Contributors / {selectedRepo}</div>
+            <div className="modal-search-area">
+              <div className="search-widget">
+                <div className="search-input-area">
+                  <div className="search-icon">
+                    <BsSearch />
+                  </div>
+                  <input
+                    className="search-input"
+                    type="search"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    placeholder="Search collaborators"
+                  />
+                </div>
+              </div>
+            </div>
+            <RenderCollaborators />
           </>
         )}
       </Modal>
+
       <table className="table">
         <RepositoryTableHead />
-        <tbody>{RenderTableRow()}</tbody>
+        <tbody>
+          <RenderTableRow />
+        </tbody>
       </table>
     </>
   );

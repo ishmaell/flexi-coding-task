@@ -1,5 +1,8 @@
 /**
- * Truncate string to a given length
+ * @description Truncates string to a given length
+ * @param str
+ * @param len
+ * @returns String
  */
 function truncateStr(str: string, len: number): string {
   if (!str) return '';
@@ -7,6 +10,12 @@ function truncateStr(str: string, len: number): string {
   else return str.slice(0, len) + '...';
 }
 
+/**
+ * @description Adds highlight to found matches in string
+ * @param query
+ * @param str
+ * @returns String
+ */
 function addHighlight(query: string, str: string): any {
   if (!query || !str) return '';
 

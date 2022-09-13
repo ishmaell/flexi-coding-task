@@ -34,20 +34,13 @@
   @apply w-8 h-8 fill-gray-400;
 }
 
-.avatar {
-  @apply w-24 h-24 rounded-full mb-10 bg-gray-100 flex items-center justify-center overflow-hidden;
-}
-
-.avatar svg {
-  @apply text-7xl mt-8 bg-black;
-}
 
 .modal-content {
   @apply w-full;
 }
 
 .modal-title {
-  @apply text-xl font-semibold mb-10 text-gray-900;
+  @apply text-xl font-semibold mb-5 text-gray-900;
 }
 
 .modal-description {
@@ -56,4 +49,12 @@
 
 .modal-actions {
   @apply flex justify-between;
+}
+
+.modal-search-area {
+  @apply mb-7;
+}
+
+.modal-search-area .search-input-area {
+  @apply w-full;
 }

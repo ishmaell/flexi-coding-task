@@ -13,3 +13,7 @@
 .collaborator .url {
   @apply flex justify-between hover:text-blue-400;
 }
+
+.no-collaborators {
+  @apply text-base text-gray-500;
+}
